@@ -1,20 +1,43 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Vault Helm Chart
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+> :warning: **Please note**: We take Vault's security and our users' trust very seriously. If 
+you believe you have found a security issue in Vault Helm, _please responsibly disclose_ 
+by contacting us at [security@hashicorp.com](mailto:security@hashicorp.com).
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+This repository contains the official HashiCorp Helm chart for installing
+and configuring Vault on Kubernetes. This chart supports multiple use
+cases of Vault on Kubernetes depending on the values provided.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+For full documentation on this Helm chart along with all the ways you can
+use Vault with Kubernetes, please see the
+[Vault and Kubernetes documentation](https://developer.hashicorp.com/vault/docs/platform/k8s).
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## Prerequisites
+
+To use the charts here, [Helm](https://helm.sh/) must be configured for your
+Kubernetes cluster. Setting up Kubernetes and Helm is outside the scope of
+this README. Please refer to the Kubernetes and Helm documentation.
+
+The versions required are:
+
+  * **Helm 3.6+**
+  * **Kubernetes 1.28+** - This is the earliest version of Kubernetes tested.
+    It is possible that this chart works with earlier versions but it is
+    untested.
+
+## Usage
+
+To install the latest version of this chart, add the Hashicorp helm repository
+and run `helm install`:
+
+```console
+$ helm repo add hashicorp https://helm.releases.hashicorp.com
+"hashicorp" has been added to your repositories
+
+$ helm install vault hashicorp/vault
+```
+
+Please see the many options supported in the `values.yaml` file. These are also
+fully documented directly on the [Vault
+website](https://developer.hashicorp.com/vault/docs/platform/k8s/helm) along with more
+detailed installation instructions.
