@@ -1,0 +1,35 @@
+# Gateway API CRDs Helm Chart Values
+
+# Gateway API version to install
+gatewayAPIVersion: "1.2.0"
+
+# CRDs to install (all enabled by default)
+crds:
+  # GatewayClass - Defines a class of Gateways
+  gatewayClass:
+    enabled: true
+  
+  # Gateway - Manages traffic entering the cluster
+  gateway:
+    enabled: true
+  
+  # HTTPRoute - Routes HTTP traffic to Services
+  httpRoute:
+    enabled: true
+  
+  # GRPCRoute - Routes gRPC traffic to Services
+  grpcRoute:
+    enabled: true
+  
+  # ReferenceGrant - Allows cross-namespace references
+  referenceGrant:
+    enabled: true
+
+# Common labels to add to all CRDs
+commonLabels: {}
+  # team: platform
+  # environment: production
+
+# Common annotations to add to all CRDs
+commonAnnotations: {}
+  # argocd.argoproj.io/sync-options: Replace=true
