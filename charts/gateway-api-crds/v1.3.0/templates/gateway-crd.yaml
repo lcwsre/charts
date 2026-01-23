@@ -1,0 +1,1241 @@
+{{- if .Values.crds.gateway.enabled }}
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    api-approved.kubernetes.io: https://github.com/kubernetes-sigs/gateway-api/pull/3328
+    gateway.networking.k8s.io/bundle-version: v1.3.1
+    gateway.networking.k8s.io/channel: standard
+    {{- with .Values.commonAnnotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  labels:
+    gateway.networking.k8s.io/policy: direct
+    {{- include "gateway-api-crds.labels" . | nindent 4 }}
+    {{- with .Values.commonLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  name: gateways.gateway.networking.k8s.io
+spec:
+  group: gateway.networking.k8s.io
+  names:
+    categories:
+      - gateway-api
+    kind: Gateway
+    listKind: GatewayList
+    plural: gateways
+    shortNames:
+      - gtw
+    singular: gateway
+  scope: Namespaced
+  versions:
+    - additionalPrinterColumns:
+        - jsonPath: .spec.gatewayClassName
+          name: Class
+          type: string
+        - jsonPath: .status.addresses[*].value
+          name: Address
+          type: string
+        - jsonPath: .status.conditions[?(@.type=="Programmed")].status
+          name: Programmed
+          type: string
+        - jsonPath: .metadata.creationTimestamp
+          name: Age
+          type: date
+      name: v1
+      schema:
+        openAPIV3Schema:
+          description: |-
+            Gateway represents an instance of a service-traffic handling infrastructure
+            by binding Listeners to a set of IP addresses.
+          properties:
+            apiVersion:
+              description: |-
+                APIVersion defines the versioned schema of this representation of an object.
+                Servers should convert recognized schemas to the latest internal value, and
+                may reject unrecognized values.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+              type: string
+            kind:
+              description: |-
+                Kind is a string value representing the REST resource this object represents.
+                Servers may infer this from the endpoint the client submits requests to.
+                Cannot be updated.
+                In CamelCase.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: Spec defines the desired state of Gateway.
+              properties:
+                addresses:
+                  description: |-
+                    Addresses requested for this Gateway. This is optional and behavior can
+                    depend on the implementation. If a value is set in the spec and the
+                    requested address is invalid or unavailable, the implementation MUST
+                    indicate this in the associated entry in GatewayStatus.Addresses.
+                  items:
+                    description: GatewayAddress describes an address that can be bound to a Gateway.
+                    oneOf:
+                      - properties:
+                          type:
+                            enum:
+                              - IPAddress
+                          value:
+                            anyOf:
+                              - format: ipv4
+                              - format: ipv6
+                      - properties:
+                          type:
+                            not:
+                              enum:
+                                - IPAddress
+                    properties:
+                      type:
+                        default: IPAddress
+                        description: Type of the address.
+                        maxLength: 253
+                        minLength: 1
+                        pattern: ^Hostname|IPAddress|NamedAddress|[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*\/[A-Za-z0-9\/\-._~%!$&'()*+,;=:]+$
+                        type: string
+                      value:
+                        description: |-
+                          Value of the address. The validity of the values will depend
+                          on the type and support by the controller.
+                        maxLength: 253
+                        minLength: 1
+                        type: string
+                    required:
+                      - value
+                    type: object
+                    x-kubernetes-validations:
+                      - message: Hostname value must only contain valid characters (matching ^(\*\.)?[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$)
+                        rule: 'self.type == ''Hostname'' ? self.value.matches(r"""^(\*\.)?[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$"""): true'
+                  maxItems: 16
+                  type: array
+                  x-kubernetes-validations:
+                    - message: IPAddress values must be unique
+                      rule: 'self.all(a1, a1.type == ''IPAddress'' ? self.exists_one(a2, a2.type == a1.type && a2.value == a1.value) : true )'
+                    - message: Hostname values must be unique
+                      rule: 'self.all(a1, a1.type == ''Hostname'' ? self.exists_one(a2, a2.type == a1.type && a2.value == a1.value) : true )'
+                gatewayClassName:
+                  description: |-
+                    GatewayClassName used for this Gateway. This is the name of a
+                    GatewayClass resource.
+                  maxLength: 253
+                  minLength: 1
+                  type: string
+                infrastructure:
+                  description: |-
+                    Infrastructure defines infrastructure level attributes about this Gateway instance.
+
+                    Support: Extended
+                  properties:
+                    annotations:
+                      additionalProperties:
+                        description: |-
+                          AnnotationValue is the value of an annotation in Gateway API. This is used
+                          for validation of maps such as TLS options. This roughly matches Kubernetes
+                          annotation validation, although the length validation in that case is based
+                          on the entire size of the annotations struct.
+                        maxLength: 4096
+                        minLength: 0
+                        type: string
+                      description: |-
+                        Annotations that SHOULD be applied to any resources created in response to this Gateway.
+
+                        For implementations creating other Kubernetes objects, this should be the `metadata.annotations` field on resources.
+                        For other implementations, this refers to any relevant (implementation specific) "annotations" concepts.
+
+                        An implementation may chose to add additional implementation-specific annotations as they see fit.
+
+                        Support: Extended
+                      maxProperties: 8
+                      type: object
+                    labels:
+                      additionalProperties:
+                        description: |-
+                          LabelValue is the value of a label in the Gateway API. This is used for validation
+                          of maps such as Gateway infrastructure labels. This matches the Kubernetes label validation
+                          rules.
+                        maxLength: 63
+                        minLength: 0
+                        pattern: ^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$
+                        type: string
+                      description: |-
+                        Labels that SHOULD be applied to any resources created in response to this Gateway.
+
+                        For implementations creating other Kubernetes objects, this should be the `metadata.labels` field on resources.
+                        For other implementations, this refers to any relevant (implementation specific) "labels" concepts.
+
+                        An implementation may chose to add additional implementation-specific labels as they see fit.
+
+                        Support: Extended
+                      maxProperties: 8
+                      type: object
+                    parametersRef:
+                      description: |-
+                        ParametersRef is a reference to a resource that contains the configuration
+                        parameters corresponding to the Gateway. This is optional if the
+                        controller does not require any additional configuration.
+
+                        This follows the same semantics as GatewayClass's `parametersRef`, but on a per-Gateway basis
+
+                        The Gateway's GatewayClass may provide its own `parametersRef`. When both are specified,
+                        the merging behavior is implementation specific.
+                        It is generally recommended that GatewayClass provides defaults that can be overridden by a Gateway.
+
+                        Support: Implementation-specific
+                      properties:
+                        group:
+                          description: Group is the group of the referent.
+                          maxLength: 253
+                          pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                          type: string
+                        kind:
+                          description: Kind is kind of the referent.
+                          maxLength: 63
+                          minLength: 1
+                          pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                          type: string
+                        name:
+                          description: Name is the name of the referent.
+                          maxLength: 253
+                          minLength: 1
+                          type: string
+                      required:
+                        - group
+                        - kind
+                        - name
+                      type: object
+                  type: object
+                listeners:
+                  description: |-
+                    Listeners associated with this Gateway. Listeners define
+                    logical endpoints that are bound on this Gateway's addresses.
+                    At least one Listener MUST be specified.
+
+                    Each Listener in a set of Listeners (for example, in a single Gateway)
+                    MUST be _distinct_, in that a traffic flow MUST be able to be assigned to
+                    exactly one listener. (This section uses "set of Listeners" rather than
+                    "Listeners in a single Gateway" because implementations MAY merge configuration
+                    from multiple Gateways onto a single data plane, and these rules _also_
+                    apply in that case).
+                  items:
+                    description: |-
+                      Listener embodies the concept of a logical endpoint where a Gateway accepts
+                      network connections.
+                    properties:
+                      allowedRoutes:
+                        default:
+                          namespaces:
+                            from: Same
+                        description: |-
+                          AllowedRoutes defines the types of routes that MAY be attached to a
+                          Listener and the trusted namespaces where those Route resources MAY be
+                          present.
+                        properties:
+                          kinds:
+                            description: |-
+                              Kinds specifies the groups and kinds of Routes that are allowed to bind
+                              to this Gateway Listener. When unspecified or empty, the kinds of Routes
+                              selected are determined using the Listener protocol.
+                            items:
+                              description: RouteGroupKind indicates the group and kind of a Route resource.
+                              properties:
+                                group:
+                                  default: gateway.networking.k8s.io
+                                  description: Group is the group of the Route.
+                                  maxLength: 253
+                                  pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                                  type: string
+                                kind:
+                                  description: Kind is the kind of the Route.
+                                  maxLength: 63
+                                  minLength: 1
+                                  pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                                  type: string
+                              required:
+                                - kind
+                              type: object
+                            maxItems: 8
+                            type: array
+                          namespaces:
+                            default:
+                              from: Same
+                            description: |-
+                              Namespaces indicates namespaces from which Routes may be attached to this
+                              Listener. This is restricted to the namespace of this Gateway by default.
+                            properties:
+                              from:
+                                default: Same
+                                description: |-
+                                  From indicates where Routes will be selected for this Gateway. Possible
+                                  values are:
+
+                                  * All: Routes in all namespaces may be used by this Gateway.
+                                  * Selector: Routes in namespaces selected by the selector may be used by
+                                    this Gateway.
+                                  * Same: Only Routes in the same namespace may be used by this Gateway.
+                                enum:
+                                  - All
+                                  - Selector
+                                  - Same
+                                type: string
+                              selector:
+                                description: |-
+                                  Selector must be specified when From is set to "Selector". In that case,
+                                  only Routes in Namespaces matching this Selector will be selected by this
+                                  Gateway. This field is ignored for other values of "From".
+                                properties:
+                                  matchExpressions:
+                                    description: matchExpressions is a list of label selector requirements. The requirements are ANDed.
+                                    items:
+                                      description: |-
+                                        A label selector requirement is a selector that contains values, a key, and an operator that
+                                        relates the key and values.
+                                      properties:
+                                        key:
+                                          description: key is the label key that the selector applies to.
+                                          type: string
+                                        operator:
+                                          description: |-
+                                            operator represents a key's relationship to a set of values.
+                                            Valid operators are In, NotIn, Exists and DoesNotExist.
+                                          type: string
+                                        values:
+                                          description: |-
+                                            values is an array of string values. If the operator is In or NotIn,
+                                            the values array must be non-empty. If the operator is Exists or DoesNotExist,
+                                            the values array must be empty. This array is replaced during a strategic
+                                            merge patch.
+                                          items:
+                                            type: string
+                                          type: array
+                                          x-kubernetes-list-type: atomic
+                                      required:
+                                        - key
+                                        - operator
+                                      type: object
+                                    type: array
+                                    x-kubernetes-list-type: atomic
+                                  matchLabels:
+                                    additionalProperties:
+                                      type: string
+                                    description: |-
+                                      matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels
+                                      map is equivalent to an element of matchExpressions, whose key field is "key", the
+                                      operator is "In", and the values array contains only "value". The requirements are ANDed.
+                                    type: object
+                                type: object
+                                x-kubernetes-map-type: atomic
+                            type: object
+                        type: object
+                      hostname:
+                        description: |-
+                          Hostname specifies the virtual hostname to match for protocol types that
+                          define this concept. When unspecified, all hostnames are matched. This
+                          field is ignored for protocols that don't require hostname based
+                          matching.
+                        maxLength: 253
+                        minLength: 1
+                        pattern: ^(\*\.)?[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                        type: string
+                      name:
+                        description: |-
+                          Name is the name of the Listener. This name MUST be unique within a
+                          Gateway.
+                        maxLength: 253
+                        minLength: 1
+                        pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                        type: string
+                      port:
+                        description: |-
+                          Port is the network port. Multiple listeners may use the
+                          same port, subject to the Listener compatibility rules.
+                        format: int32
+                        maximum: 65535
+                        minimum: 1
+                        type: integer
+                      protocol:
+                        description: |-
+                          Protocol specifies the network protocol this listener expects to receive.
+                        maxLength: 255
+                        minLength: 1
+                        pattern: ^[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])?$|[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*\/[A-Za-z0-9]+$
+                        type: string
+                      tls:
+                        description: |-
+                          TLS is the TLS configuration for the Listener. This field is required if
+                          the Protocol field is "HTTPS" or "TLS". It is invalid to set this field
+                          if the Protocol field is "HTTP", "TCP", or "UDP".
+                        properties:
+                          certificateRefs:
+                            description: |-
+                              CertificateRefs contains a series of references to Kubernetes objects that
+                              contains TLS certificates and private keys. These certificates are used to
+                              establish a TLS handshake for requests that match the hostname of the
+                              associated listener.
+                            items:
+                              description: |-
+                                SecretObjectReference identifies an API object including its namespace,
+                                defaulting to Secret.
+                              properties:
+                                group:
+                                  default: ""
+                                  description: |-
+                                    Group is the group of the referent. For example, "gateway.networking.k8s.io".
+                                    When unspecified or empty string, core API group is inferred.
+                                  maxLength: 253
+                                  pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                                  type: string
+                                kind:
+                                  default: Secret
+                                  description: Kind is kind of the referent. For example "Secret".
+                                  maxLength: 63
+                                  minLength: 1
+                                  pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                                  type: string
+                                name:
+                                  description: Name is the name of the referent.
+                                  maxLength: 253
+                                  minLength: 1
+                                  type: string
+                                namespace:
+                                  description: |-
+                                    Namespace is the namespace of the referenced object. When unspecified, the local
+                                    namespace is inferred.
+                                  maxLength: 63
+                                  minLength: 1
+                                  pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                                  type: string
+                              required:
+                                - name
+                              type: object
+                            maxItems: 64
+                            type: array
+                          frontendValidation:
+                            description: |-
+                              FrontendValidation holds configuration information for validating the
+                              frontend (client). Setting this field will require clients to send a
+                              client certificate required for validation during the TLS handshake. In
+                              browsers this may result in a dialog appearing that requests a user to
+                              specify the client certificate. The maximum depth of a certificate chain
+                              accepted in verification is Implementation specific.
+
+                              Support: Extended
+                            properties:
+                              caCertificateRefs:
+                                description: |-
+                                  CACertificateRefs contains one or more references to
+                                  Kubernetes objects that contain TLS certificates of
+                                  the Certificate Authorities that can be used
+                                  as a trust anchor to validate the certificates presented by the client.
+                                items:
+                                  description: |-
+                                    ObjectReference identifies an API object including its namespace.
+
+                                    The API object must be valid in the cluster; the Group and Kind must
+                                    be registered in the cluster for this reference to be valid.
+                                  properties:
+                                    group:
+                                      description: |-
+                                        Group is the group of the referent. For example, "gateway.networking.k8s.io".
+                                        When unspecified or empty string, core API group is inferred.
+                                      maxLength: 253
+                                      pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                                      type: string
+                                    kind:
+                                      description: Kind is kind of the referent. For example "ConfigMap" or "Service".
+                                      maxLength: 63
+                                      minLength: 1
+                                      pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                                      type: string
+                                    name:
+                                      description: Name is the name of the referent.
+                                      maxLength: 253
+                                      minLength: 1
+                                      type: string
+                                    namespace:
+                                      description: |-
+                                        Namespace is the namespace of the referenced object. When unspecified, the local
+                                        namespace is inferred.
+                                      maxLength: 63
+                                      minLength: 1
+                                      pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                                      type: string
+                                  required:
+                                    - group
+                                    - kind
+                                    - name
+                                  type: object
+                                maxItems: 8
+                                type: array
+                            type: object
+                            x-kubernetes-validations:
+                              - message: caCertificateRefs requires at least one entry
+                                rule: 'has(self.caCertificateRefs) ? self.caCertificateRefs.size() > 0 : true'
+                          mode:
+                            default: Terminate
+                            description: |-
+                              Mode defines the TLS behavior for the TLS session initiated by the client.
+                              There are two possible modes:
+
+                              - Terminate: The TLS session between the downstream client and the
+                                Gateway is terminated at the Gateway. This mode requires certificates
+                                to be specified in some way, such as populating the certificateRefs
+                                field.
+                              - Passthrough: The TLS session is NOT terminated by the Gateway. This
+                                implies that the Gateway can't decipher the TLS stream except for
+                                the ClientHello message of the TLS protocol. The certificateRefs field
+                                is ignored in this mode.
+                            enum:
+                              - Terminate
+                              - Passthrough
+                            type: string
+                          options:
+                            additionalProperties:
+                              description: |-
+                                AnnotationValue is the value of an annotation in Gateway API. This is used
+                                for validation of maps such as TLS options.
+                              maxLength: 4096
+                              minLength: 0
+                              type: string
+                            description: |-
+                              Options are a list of key/value pairs to enable extended TLS
+                              configuration for each implementation.
+                            maxProperties: 16
+                            type: object
+                        type: object
+                        x-kubernetes-validations:
+                          - message: certificateRefs or options must be specified when mode is Terminate
+                            rule: 'self.mode == ''Terminate'' ? size(self.certificateRefs) > 0 || size(self.options) > 0 : true'
+                    required:
+                      - name
+                      - port
+                      - protocol
+                    type: object
+                  maxItems: 64
+                  minItems: 1
+                  type: array
+                  x-kubernetes-list-map-keys:
+                    - name
+                  x-kubernetes-list-type: map
+                  x-kubernetes-validations:
+                    - message: tls must not be specified for protocols ['HTTP', 'TCP', 'UDP']
+                      rule: 'self.all(l, l.protocol in [''HTTP'', ''TCP'', ''UDP''] ? !has(l.tls) : true)'
+                    - message: tls mode must be Terminate for protocol HTTPS
+                      rule: 'self.all(l, (l.protocol == ''HTTPS'' && has(l.tls)) ? (l.tls.mode == '''' || l.tls.mode == ''Terminate'') : true)'
+                    - message: hostname must not be specified for protocols ['TCP', 'UDP']
+                      rule: 'self.all(l, l.protocol in [''TCP'', ''UDP'']  ? (!has(l.hostname) || l.hostname == '''') : true)'
+                    - message: Listener name must be unique within the Gateway
+                      rule: self.all(l1, self.exists_one(l2, l1.name == l2.name))
+                    - message: Combination of port, protocol and hostname must be unique for each listener
+                      rule: 'self.all(l1, self.exists_one(l2, l1.port == l2.port && l1.protocol == l2.protocol && (has(l1.hostname) && has(l2.hostname) ? l1.hostname == l2.hostname : !has(l1.hostname) && !has(l2.hostname))))'
+              required:
+                - gatewayClassName
+                - listeners
+              type: object
+            status:
+              default:
+                conditions:
+                  - lastTransitionTime: "1970-01-01T00:00:00Z"
+                    message: Waiting for controller
+                    reason: Pending
+                    status: Unknown
+                    type: Accepted
+                  - lastTransitionTime: "1970-01-01T00:00:00Z"
+                    message: Waiting for controller
+                    reason: Pending
+                    status: Unknown
+                    type: Programmed
+              description: Status defines the current state of Gateway.
+              properties:
+                addresses:
+                  description: |-
+                    Addresses lists the network addresses that have been bound to the
+                    Gateway.
+                  items:
+                    description: GatewayStatusAddress describes a network address that is bound to a Gateway.
+                    oneOf:
+                      - properties:
+                          type:
+                            enum:
+                              - IPAddress
+                          value:
+                            anyOf:
+                              - format: ipv4
+                              - format: ipv6
+                      - properties:
+                          type:
+                            not:
+                              enum:
+                                - IPAddress
+                    properties:
+                      type:
+                        default: IPAddress
+                        description: Type of the address.
+                        maxLength: 253
+                        minLength: 1
+                        pattern: ^Hostname|IPAddress|NamedAddress|[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*\/[A-Za-z0-9\/\-._~%!$&'()*+,;=:]+$
+                        type: string
+                      value:
+                        description: |-
+                          Value of the address. The validity of the values will depend
+                          on the type and support by the controller.
+                        maxLength: 253
+                        minLength: 1
+                        type: string
+                    required:
+                      - value
+                    type: object
+                    x-kubernetes-validations:
+                      - message: Hostname value must only contain valid characters (matching ^(\*\.)?[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$)
+                        rule: 'self.type == ''Hostname'' ? self.value.matches(r"""^(\*\.)?[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$"""): true'
+                  maxItems: 16
+                  type: array
+                conditions:
+                  default:
+                    - lastTransitionTime: "1970-01-01T00:00:00Z"
+                      message: Waiting for controller
+                      reason: Pending
+                      status: Unknown
+                      type: Accepted
+                    - lastTransitionTime: "1970-01-01T00:00:00Z"
+                      message: Waiting for controller
+                      reason: Pending
+                      status: Unknown
+                      type: Programmed
+                  description: |-
+                    Conditions describe the current conditions of the Gateway.
+                  items:
+                    description: Condition contains details for one aspect of the current state of this API Resource.
+                    properties:
+                      lastTransitionTime:
+                        description: |-
+                          lastTransitionTime is the last time the condition transitioned from one status to another.
+                        format: date-time
+                        type: string
+                      message:
+                        description: |-
+                          message is a human readable message indicating details about the transition.
+                        maxLength: 32768
+                        type: string
+                      observedGeneration:
+                        description: |-
+                          observedGeneration represents the .metadata.generation that the condition was set based upon.
+                        format: int64
+                        minimum: 0
+                        type: integer
+                      reason:
+                        description: |-
+                          reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                        maxLength: 1024
+                        minLength: 1
+                        pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                        type: string
+                      status:
+                        description: status of the condition, one of True, False, Unknown.
+                        enum:
+                          - "True"
+                          - "False"
+                          - Unknown
+                        type: string
+                      type:
+                        description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                        maxLength: 316
+                        pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                        type: string
+                    required:
+                      - lastTransitionTime
+                      - message
+                      - reason
+                      - status
+                      - type
+                    type: object
+                  maxItems: 8
+                  type: array
+                  x-kubernetes-list-map-keys:
+                    - type
+                  x-kubernetes-list-type: map
+                listeners:
+                  description: Listeners provide status for each unique listener port defined in the Spec.
+                  items:
+                    description: ListenerStatus is the status associated with a Listener.
+                    properties:
+                      attachedRoutes:
+                        description: |-
+                          AttachedRoutes represents the total number of Routes that have been
+                          successfully attached to this Listener.
+                        format: int32
+                        type: integer
+                      conditions:
+                        description: Conditions describe the current condition of this listener.
+                        items:
+                          description: Condition contains details for one aspect of the current state of this API Resource.
+                          properties:
+                            lastTransitionTime:
+                              description: lastTransitionTime is the last time the condition transitioned from one status to another.
+                              format: date-time
+                              type: string
+                            message:
+                              description: message is a human readable message indicating details about the transition.
+                              maxLength: 32768
+                              type: string
+                            observedGeneration:
+                              description: observedGeneration represents the .metadata.generation that the condition was set based upon.
+                              format: int64
+                              minimum: 0
+                              type: integer
+                            reason:
+                              description: reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                              maxLength: 1024
+                              minLength: 1
+                              pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                              type: string
+                            status:
+                              description: status of the condition, one of True, False, Unknown.
+                              enum:
+                                - "True"
+                                - "False"
+                                - Unknown
+                              type: string
+                            type:
+                              description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                              maxLength: 316
+                              pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                              type: string
+                          required:
+                            - lastTransitionTime
+                            - message
+                            - reason
+                            - status
+                            - type
+                          type: object
+                        maxItems: 8
+                        type: array
+                        x-kubernetes-list-map-keys:
+                          - type
+                        x-kubernetes-list-type: map
+                      name:
+                        description: Name is the name of the Listener that this status corresponds to.
+                        maxLength: 253
+                        minLength: 1
+                        pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                        type: string
+                      supportedKinds:
+                        description: |-
+                          SupportedKinds is the list indicating the Kinds supported by this
+                          listener. This MUST represent the kinds an implementation supports for
+                          that Listener configuration.
+                        items:
+                          description: RouteGroupKind indicates the group and kind of a Route resource.
+                          properties:
+                            group:
+                              default: gateway.networking.k8s.io
+                              description: Group is the group of the Route.
+                              maxLength: 253
+                              pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                              type: string
+                            kind:
+                              description: Kind is the kind of the Route.
+                              maxLength: 63
+                              minLength: 1
+                              pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                              type: string
+                          required:
+                            - kind
+                          type: object
+                        maxItems: 8
+                        type: array
+                    required:
+                      - attachedRoutes
+                      - conditions
+                      - name
+                      - supportedKinds
+                    type: object
+                  maxItems: 64
+                  type: array
+                  x-kubernetes-list-map-keys:
+                    - name
+                  x-kubernetes-list-type: map
+              type: object
+          required:
+            - spec
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
+    - additionalPrinterColumns:
+        - jsonPath: .spec.gatewayClassName
+          name: Class
+          type: string
+        - jsonPath: .status.addresses[*].value
+          name: Address
+          type: string
+        - jsonPath: .status.conditions[?(@.type=="Programmed")].status
+          name: Programmed
+          type: string
+        - jsonPath: .metadata.creationTimestamp
+          name: Age
+          type: date
+      name: v1beta1
+      schema:
+        openAPIV3Schema:
+          description: |-
+            Gateway represents an instance of a service-traffic handling infrastructure
+            by binding Listeners to a set of IP addresses.
+          properties:
+            apiVersion:
+              type: string
+            kind:
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: Spec defines the desired state of Gateway.
+              properties:
+                addresses:
+                  items:
+                    description: GatewayAddress describes an address that can be bound to a Gateway.
+                    oneOf:
+                      - properties:
+                          type:
+                            enum:
+                              - IPAddress
+                          value:
+                            anyOf:
+                              - format: ipv4
+                              - format: ipv6
+                      - properties:
+                          type:
+                            not:
+                              enum:
+                                - IPAddress
+                    properties:
+                      type:
+                        default: IPAddress
+                        maxLength: 253
+                        minLength: 1
+                        pattern: ^Hostname|IPAddress|NamedAddress|[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*\/[A-Za-z0-9\/\-._~%!$&'()*+,;=:]+$
+                        type: string
+                      value:
+                        maxLength: 253
+                        minLength: 1
+                        type: string
+                    required:
+                      - value
+                    type: object
+                  maxItems: 16
+                  type: array
+                gatewayClassName:
+                  maxLength: 253
+                  minLength: 1
+                  type: string
+                infrastructure:
+                  properties:
+                    annotations:
+                      additionalProperties:
+                        maxLength: 4096
+                        minLength: 0
+                        type: string
+                      maxProperties: 8
+                      type: object
+                    labels:
+                      additionalProperties:
+                        maxLength: 63
+                        minLength: 0
+                        pattern: ^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$
+                        type: string
+                      maxProperties: 8
+                      type: object
+                    parametersRef:
+                      properties:
+                        group:
+                          maxLength: 253
+                          pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                          type: string
+                        kind:
+                          maxLength: 63
+                          minLength: 1
+                          pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                          type: string
+                        name:
+                          maxLength: 253
+                          minLength: 1
+                          type: string
+                      required:
+                        - group
+                        - kind
+                        - name
+                      type: object
+                  type: object
+                listeners:
+                  items:
+                    properties:
+                      allowedRoutes:
+                        default:
+                          namespaces:
+                            from: Same
+                        properties:
+                          kinds:
+                            items:
+                              properties:
+                                group:
+                                  default: gateway.networking.k8s.io
+                                  maxLength: 253
+                                  pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                                  type: string
+                                kind:
+                                  maxLength: 63
+                                  minLength: 1
+                                  pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                                  type: string
+                              required:
+                                - kind
+                              type: object
+                            maxItems: 8
+                            type: array
+                          namespaces:
+                            default:
+                              from: Same
+                            properties:
+                              from:
+                                default: Same
+                                enum:
+                                  - All
+                                  - Selector
+                                  - Same
+                                type: string
+                              selector:
+                                properties:
+                                  matchExpressions:
+                                    items:
+                                      properties:
+                                        key:
+                                          type: string
+                                        operator:
+                                          type: string
+                                        values:
+                                          items:
+                                            type: string
+                                          type: array
+                                          x-kubernetes-list-type: atomic
+                                      required:
+                                        - key
+                                        - operator
+                                      type: object
+                                    type: array
+                                    x-kubernetes-list-type: atomic
+                                  matchLabels:
+                                    additionalProperties:
+                                      type: string
+                                    type: object
+                                type: object
+                                x-kubernetes-map-type: atomic
+                            type: object
+                        type: object
+                      hostname:
+                        maxLength: 253
+                        minLength: 1
+                        pattern: ^(\*\.)?[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                        type: string
+                      name:
+                        maxLength: 253
+                        minLength: 1
+                        pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                        type: string
+                      port:
+                        format: int32
+                        maximum: 65535
+                        minimum: 1
+                        type: integer
+                      protocol:
+                        maxLength: 255
+                        minLength: 1
+                        pattern: ^[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])?$|[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*\/[A-Za-z0-9]+$
+                        type: string
+                      tls:
+                        properties:
+                          certificateRefs:
+                            items:
+                              properties:
+                                group:
+                                  default: ""
+                                  maxLength: 253
+                                  pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                                  type: string
+                                kind:
+                                  default: Secret
+                                  maxLength: 63
+                                  minLength: 1
+                                  pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                                  type: string
+                                name:
+                                  maxLength: 253
+                                  minLength: 1
+                                  type: string
+                                namespace:
+                                  maxLength: 63
+                                  minLength: 1
+                                  pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                                  type: string
+                              required:
+                                - name
+                              type: object
+                            maxItems: 64
+                            type: array
+                          frontendValidation:
+                            properties:
+                              caCertificateRefs:
+                                items:
+                                  properties:
+                                    group:
+                                      maxLength: 253
+                                      pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                                      type: string
+                                    kind:
+                                      maxLength: 63
+                                      minLength: 1
+                                      pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                                      type: string
+                                    name:
+                                      maxLength: 253
+                                      minLength: 1
+                                      type: string
+                                    namespace:
+                                      maxLength: 63
+                                      minLength: 1
+                                      pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                                      type: string
+                                  required:
+                                    - group
+                                    - kind
+                                    - name
+                                  type: object
+                                maxItems: 8
+                                type: array
+                            type: object
+                          mode:
+                            default: Terminate
+                            enum:
+                              - Terminate
+                              - Passthrough
+                            type: string
+                          options:
+                            additionalProperties:
+                              maxLength: 4096
+                              minLength: 0
+                              type: string
+                            maxProperties: 16
+                            type: object
+                        type: object
+                    required:
+                      - name
+                      - port
+                      - protocol
+                    type: object
+                  maxItems: 64
+                  minItems: 1
+                  type: array
+                  x-kubernetes-list-map-keys:
+                    - name
+                  x-kubernetes-list-type: map
+              required:
+                - gatewayClassName
+                - listeners
+              type: object
+            status:
+              default:
+                conditions:
+                  - lastTransitionTime: "1970-01-01T00:00:00Z"
+                    message: Waiting for controller
+                    reason: Pending
+                    status: Unknown
+                    type: Accepted
+                  - lastTransitionTime: "1970-01-01T00:00:00Z"
+                    message: Waiting for controller
+                    reason: Pending
+                    status: Unknown
+                    type: Programmed
+              properties:
+                addresses:
+                  items:
+                    oneOf:
+                      - properties:
+                          type:
+                            enum:
+                              - IPAddress
+                          value:
+                            anyOf:
+                              - format: ipv4
+                              - format: ipv6
+                      - properties:
+                          type:
+                            not:
+                              enum:
+                                - IPAddress
+                    properties:
+                      type:
+                        default: IPAddress
+                        maxLength: 253
+                        minLength: 1
+                        pattern: ^Hostname|IPAddress|NamedAddress|[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*\/[A-Za-z0-9\/\-._~%!$&'()*+,;=:]+$
+                        type: string
+                      value:
+                        maxLength: 253
+                        minLength: 1
+                        type: string
+                    required:
+                      - value
+                    type: object
+                  maxItems: 16
+                  type: array
+                conditions:
+                  default:
+                    - lastTransitionTime: "1970-01-01T00:00:00Z"
+                      message: Waiting for controller
+                      reason: Pending
+                      status: Unknown
+                      type: Accepted
+                    - lastTransitionTime: "1970-01-01T00:00:00Z"
+                      message: Waiting for controller
+                      reason: Pending
+                      status: Unknown
+                      type: Programmed
+                  items:
+                    properties:
+                      lastTransitionTime:
+                        format: date-time
+                        type: string
+                      message:
+                        maxLength: 32768
+                        type: string
+                      observedGeneration:
+                        format: int64
+                        minimum: 0
+                        type: integer
+                      reason:
+                        maxLength: 1024
+                        minLength: 1
+                        pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                        type: string
+                      status:
+                        enum:
+                          - "True"
+                          - "False"
+                          - Unknown
+                        type: string
+                      type:
+                        maxLength: 316
+                        pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                        type: string
+                    required:
+                      - lastTransitionTime
+                      - message
+                      - reason
+                      - status
+                      - type
+                    type: object
+                  maxItems: 8
+                  type: array
+                  x-kubernetes-list-map-keys:
+                    - type
+                  x-kubernetes-list-type: map
+                listeners:
+                  items:
+                    properties:
+                      attachedRoutes:
+                        format: int32
+                        type: integer
+                      conditions:
+                        items:
+                          properties:
+                            lastTransitionTime:
+                              format: date-time
+                              type: string
+                            message:
+                              maxLength: 32768
+                              type: string
+                            observedGeneration:
+                              format: int64
+                              minimum: 0
+                              type: integer
+                            reason:
+                              maxLength: 1024
+                              minLength: 1
+                              pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                              type: string
+                            status:
+                              enum:
+                                - "True"
+                                - "False"
+                                - Unknown
+                              type: string
+                            type:
+                              maxLength: 316
+                              pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                              type: string
+                          required:
+                            - lastTransitionTime
+                            - message
+                            - reason
+                            - status
+                            - type
+                          type: object
+                        maxItems: 8
+                        type: array
+                        x-kubernetes-list-map-keys:
+                          - type
+                        x-kubernetes-list-type: map
+                      name:
+                        maxLength: 253
+                        minLength: 1
+                        pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                        type: string
+                      supportedKinds:
+                        items:
+                          properties:
+                            group:
+                              default: gateway.networking.k8s.io
+                              maxLength: 253
+                              pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                              type: string
+                            kind:
+                              maxLength: 63
+                              minLength: 1
+                              pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                              type: string
+                          required:
+                            - kind
+                          type: object
+                        maxItems: 8
+                        type: array
+                    required:
+                      - attachedRoutes
+                      - conditions
+                      - name
+                      - supportedKinds
+                    type: object
+                  maxItems: 64
+                  type: array
+                  x-kubernetes-list-map-keys:
+                    - name
+                  x-kubernetes-list-type: map
+              type: object
+          required:
+            - spec
+          type: object
+      served: true
+      storage: false
+      subresources:
+        status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: null
+  storedVersions: null
+{{- end }}
