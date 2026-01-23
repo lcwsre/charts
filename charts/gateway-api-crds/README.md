@@ -22,7 +22,7 @@ Gateway API is an official Kubernetes project focused on L4 and L7 routing in Ku
 ### Add the Helm repository
 
 ```bash
-helm repo add lcwsre https://lcwsre.github.io/lcwsre
+helm repo add lcwsre https://lcwsre.github.io/charts
 helm repo update
 ```
 

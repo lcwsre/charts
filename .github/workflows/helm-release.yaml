@@ -44,7 +44,7 @@ jobs:
 
       - name: Update Helm Repository Index
         run: |
-          helm repo index docs/ --url https://lcwsre.github.io/hq-gitops/
+          helm repo index docs/ --url https://lcwsre.github.io/charts/
 
       - name: Commit and Push Changes
         run: |

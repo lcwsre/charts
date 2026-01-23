@@ -9,7 +9,7 @@ Public Helm Charts repository maintained by LC Waikiki SRE Team.
 Add this Helm repository:
 
 ```bash
-helm repo add lcwsre https://lcwsre.github.io/hq-gitops
+helm repo add lcwsre https://lcwsre.github.io/charts
 helm repo update
 ```
 
@@ -137,7 +137,7 @@ This repository uses GitHub Pages to host the Helm repository:
 4. Select folder: **/docs**
 5. Save
 
-The Helm repository will be available at: `https://lcwsre.github.io/hq-gitops/`
+The Helm repository will be available at: `https://lcwsre.github.io/charts/`
 
 ---
 
