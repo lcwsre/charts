@@ -27,5 +27,5 @@ entries:
     type: application
     urls:
     - https://lcwsre.github.io/charts/charts/gateway-api-crds/v1.2.0/gateway-api-crds-1.2.0.tgz
-    version: 0.1.0
+    version: 1.2.0
 generated: "2026-01-23T06:47:35.799550937Z"
