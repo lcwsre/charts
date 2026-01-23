@@ -1,0 +1,31 @@
+apiVersion: v1
+entries:
+  gateway-api-crds:
+  - annotations:
+      artifacthub.io/category: networking
+      artifacthub.io/license: Apache-2.0
+    apiVersion: v2
+    appVersion: 1.2.0
+    created: "2026-01-23T09:29:28.3733568+03:00"
+    description: A Helm chart to install Kubernetes Gateway API CRDs (CustomResourceDefinitions)
+    digest: ecf250d54eab23949dcd2554e8befc591cc08ed7e4a6415bf4e7a66bc53fcb5e
+    home: https://gateway-api.sigs.k8s.io/
+    icon: https://gateway-api.sigs.k8s.io/images/logo/logo-text-horizontal.png
+    keywords:
+    - gateway
+    - gateway-api
+    - crd
+    - ingress
+    - kubernetes
+    - networking
+    maintainers:
+    - email: lcwsre@lcwaikiki.com
+      name: LCW SRE Team
+    name: gateway-api-crds
+    sources:
+    - https://github.com/kubernetes-sigs/gateway-api
+    type: application
+    urls:
+    - https://lcwsre.github.io/hq-gitops/gateway-api-crds-0.1.0.tgz
+    version: 0.1.0
+generated: "2026-01-23T09:29:28.3405454+03:00"

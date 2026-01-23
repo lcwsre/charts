@@ -29,11 +29,26 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Install Helm
-        uses: azure/setup-helm@v3
+        uses: azure/setup-helm@v4
         with:
-          version: v3.14.0
+          version: v3.17.0
 
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.6.0
-        env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Package Helm Charts
+        run: |
+          for chart in charts/*; do
+            if [ -d "$chart" ]; then
+              echo "Packaging $chart..."
+              tar -czf "docs/$(basename $chart)-$(grep '^version:' $chart/Chart.yaml | awk '{print $2}').tgz" -C charts $(basename $chart)
+            fi
+          done
+
+      - name: Update Helm Repository Index
+        run: |
+          helm repo index docs/ --url https://lcwsre.github.io/hq-gitops/
+
+      - name: Commit and Push Changes
+        run: |
+          git add docs/
+          git diff --staged --quiet || git commit -m "chore: update helm charts and repository index [skip ci]"
+          git push
+
