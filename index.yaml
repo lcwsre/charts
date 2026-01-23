@@ -26,6 +26,6 @@ entries:
     - https://github.com/kubernetes-sigs/gateway-api
     type: application
     urls:
-    - https://lcwsre.github.io/charts/gateway-api-crds-0.1.0.tgz
+    - https://lcwsre.github.io/charts/charts/gateway-api-crds/v1.2.0/gateway-api-crds-1.2.0.tgz
     version: 0.1.0
 generated: "2026-01-23T06:47:35.799550937Z"
