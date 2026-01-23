@@ -614,9 +614,6 @@ spec:
                         maxItems: 16
                         type: array
                       matches:
-                        default:
-                          - method:
-                              type: Exact
                         description: |-
                           Matches define conditions used for matching the rule against incoming
                           gRPC requests.
@@ -658,8 +655,6 @@ spec:
                                 - name
                               x-kubernetes-list-type: map
                             method:
-                              default:
-                                type: Exact
                               description: Method specifies a gRPC request service/method matcher.
                               properties:
                                 method:
