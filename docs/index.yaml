@@ -6,9 +6,9 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 1.2.0
-    created: "2026-01-23T09:29:28.3733568+03:00"
+    created: "2026-01-23T06:47:35.80057632Z"
     description: A Helm chart to install Kubernetes Gateway API CRDs (CustomResourceDefinitions)
-    digest: ecf250d54eab23949dcd2554e8befc591cc08ed7e4a6415bf4e7a66bc53fcb5e
+    digest: 9a48af0a16d6a8df1962f447c2122c6a4cbc0315ed833a74a6721ffae5f7bedb
     home: https://gateway-api.sigs.k8s.io/
     icon: https://gateway-api.sigs.k8s.io/images/logo/logo-text-horizontal.png
     keywords:
@@ -28,4 +28,4 @@ entries:
     urls:
     - https://lcwsre.github.io/charts/gateway-api-crds-0.1.0.tgz
     version: 0.1.0
-generated: "2026-01-23T09:29:28.3405454+03:00"
+generated: "2026-01-23T06:47:35.799550937Z"
