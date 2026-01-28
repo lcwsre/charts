@@ -1,24 +1,33 @@
-# Default values for rancher-monitoring-crd.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+﻿# Prometheus Operator CRDs Helm Chart Values
 
-global:
-  cattle:
-    psp:
-      enabled: false
-    systemDefaultRegistry: ""
-  ## Reference to one or more secrets to be used when pulling images
-  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
-  ##
-  imagePullSecrets: []
-  # - name: "image-pull-secret"
-  # or
-  # - "image-pull-secret"
+# Prometheus Operator version
+prometheusOperatorVersion: "v0.85.0"
 
-image:
-  repository: rancher/kuberlr-kubectl
-  tag: v6.0.0
+# CRDs to install (all enabled by default)
+crds:
+  alertmanagerConfigs:
+    enabled: true
+  alertmanagers:
+    enabled: true
+  podMonitors:
+    enabled: true
+  probes:
+    enabled: true
+  prometheusAgents:
+    enabled: true
+  prometheuses:
+    enabled: true
+  prometheusRules:
+    enabled: true
+  scrapeConfigs:
+    enabled: true
+  serviceMonitors:
+    enabled: true
+  thanosRulers:
+    enabled: true
 
-nodeSelector: {}
+# Common labels to add to all CRDs
+commonLabels: {}
 
-tolerations: []
+# Common annotations to add to all CRDs
+commonAnnotations: {}

@@ -1,0 +1,25 @@
+Prometheus Operator CRDs have been installed successfully!
+
+The following CRDs have been installed:
+  ✓ alertmanagerconfigs.monitoring.coreos.com
+  ✓ alertmanagers.monitoring.coreos.com
+  ✓ podmonitors.monitoring.coreos.com
+  ✓ probes.monitoring.coreos.com
+  ✓ prometheusagents.monitoring.coreos.com
+  ✓ prometheuses.monitoring.coreos.com
+  ✓ prometheusrules.monitoring.coreos.com
+  ✓ scrapeconfigs.monitoring.coreos.com
+  ✓ servicemonitors.monitoring.coreos.com
+  ✓ thanosrulers.monitoring.coreos.com
+
+To verify the installation, run:
+  kubectl get crds | grep monitoring.coreos.com
+
+To get started with Prometheus Operator:
+  1. Install the Prometheus Operator (e.g., via rancher-monitoring chart)
+  2. Create Prometheus/Alertmanager instances
+  3. Create ServiceMonitor/PodMonitor resources to scrape metrics
+  4. Create PrometheusRule resources for alerting rules
+
+For more information, visit:
+  https://prometheus-operator.dev/
