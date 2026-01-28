@@ -16,8 +16,10 @@ spec:
       name: {{ .Chart.Name }}-delete
       labels:
         app: {{ .Chart.Name }}
-    spec:      hostNetwork: true
-      dnsPolicy: ClusterFirstWithHostNet      serviceAccountName: {{ .Chart.Name }}-manager
+    spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      serviceAccountName: {{ .Chart.Name }}-manager
       securityContext:
         runAsNonRoot: false
         runAsUser: 0
@@ -47,9 +49,9 @@ spec:
       {{- toYaml .Values.tolerations | nindent 8 }}
       {{- end }}
       volumes:
-      - name: crd-manifest
-        configMap:
-          name: {{ .Chart.Name }}-manifest
+        - name: crd-manifest
+          configMap:
+            name: {{ .Chart.Name }}-manifest
 ---
 apiVersion: batch/v1
 kind: Job
@@ -105,6 +107,6 @@ spec:
       {{- toYaml .Values.tolerations | nindent 8 }}
       {{- end }}
       volumes:
-      - name: crd-manifest
-        configMap:
-          name: {{ .Chart.Name }}-manifest
+        - name: crd-manifest
+          configMap:
+            name: {{ .Chart.Name }}-manifest
