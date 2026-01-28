@@ -6,7 +6,7 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 1.4.0
-    created: "2026-01-28T15:24:51.6202491+03:00"
+    created: "2026-01-28T15:25:56.2969847+03:00"
     description: A Helm chart to install Kubernetes Gateway API CRDs (CustomResourceDefinitions)
     digest: 5b3b8064b6101fab986a456bd8ffe0720beb8e0f57187025671babede96894bd
     home: https://gateway-api.sigs.k8s.io/
@@ -33,7 +33,7 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 1.3.0
-    created: "2026-01-28T15:24:51.5789161+03:00"
+    created: "2026-01-28T15:25:56.2911009+03:00"
     description: A Helm chart to install Kubernetes Gateway API CRDs (CustomResourceDefinitions)
     digest: 3b02d28544fa181fac87b74f1f7009e3c4034baf2ca824840e823bff76f412c3
     home: https://gateway-api.sigs.k8s.io/
@@ -60,7 +60,7 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 1.2.0
-    created: "2026-01-28T15:24:51.5427159+03:00"
+    created: "2026-01-28T15:25:56.2845839+03:00"
     description: A Helm chart to install Kubernetes Gateway API CRDs (CustomResourceDefinitions)
     digest: a01c0bcc90da580052c3543374848acb7a11e8c6b46f47b000b11d2f395f2c36
     home: https://gateway-api.sigs.k8s.io/
@@ -88,7 +88,7 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 77.9.1
-    created: "2026-01-28T15:24:51.7310932+03:00"
+    created: "2026-01-28T15:25:56.4144872+03:00"
     description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
     digest: 405669b48620be616d3fe2cc9466703197f42ca68757d0aa4742fa923f109e97
     home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
@@ -116,7 +116,7 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 77.9.1
-    created: "2026-01-28T15:24:51.7290725+03:00"
+    created: "2026-01-28T15:25:56.4093636+03:00"
     description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
     digest: a93eb9414b6004bfcd4e00ef2a49d584bc20fd84d34084c6ebfdefcc933e64e6
     home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
@@ -144,7 +144,7 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 77.9.1
-    created: "2026-01-28T15:24:51.725547+03:00"
+    created: "2026-01-28T15:25:56.4043103+03:00"
     description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
     digest: 36bb20fb65f550a27b78e1a7cb52f9975589d620a9a8efd1d9a2dfe0aec59f6c
     home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
@@ -172,7 +172,7 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 69.8.2
-    created: "2026-01-28T15:24:51.7215122+03:00"
+    created: "2026-01-28T15:25:56.3997556+03:00"
     description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
     digest: 79cef42b82cb6273dc6dc870c802dd5f90c33130edf2ce5c01f19643938275d1
     home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
@@ -200,7 +200,7 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 69.8.2
-    created: "2026-01-28T15:24:51.7139114+03:00"
+    created: "2026-01-28T15:25:56.3922662+03:00"
     description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
     digest: 67a6b8549d8aac1e46821330854cfca78750a0cf54a4fb222e30808a68531a99
     home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
@@ -228,7 +228,7 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 69.8.2
-    created: "2026-01-28T15:24:51.7043852+03:00"
+    created: "2026-01-28T15:25:56.3836816+03:00"
     description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
     digest: c6054d2bff199c3cad2e696701197c60b38e3311bf0eb14f475be9b5b5f78fb2
     home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
@@ -256,7 +256,7 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 69.8.2
-    created: "2026-01-28T15:24:51.6978354+03:00"
+    created: "2026-01-28T15:25:56.3756208+03:00"
     description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
     digest: f6258a050cccef933224709b261984dd91912e4e7b31c74a332402900e81810d
     home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
@@ -284,7 +284,7 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 69.8.2
-    created: "2026-01-28T15:24:51.6935479+03:00"
+    created: "2026-01-28T15:25:56.3670589+03:00"
     description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
     digest: f165626fc9fb3e16a5ec7e7b40b2cd454d870842d6c2fee1420366c0d38254bb
     home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
@@ -307,4 +307,4 @@ entries:
     urls:
     - https://lcwsre.github.io/charts/rancher-monitoring-crd-107.0.0+up69.8.2-rancher.8.tgz
     version: 107.0.0+up69.8.2-rancher.8
-generated: "2026-01-28T15:24:51.4601807+03:00"
+generated: "2026-01-28T15:25:56.232574+03:00"
