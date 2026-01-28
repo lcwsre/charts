@@ -22,7 +22,3 @@ maintainers:
 annotations:
   artifacthub.io/license: Apache-2.0
   artifacthub.io/category: monitoring-logging
-  catalog.cattle.io/certified: rancher
-  catalog.cattle.io/hidden: "false"
-  catalog.cattle.io/namespace: cattle-monitoring-system
-  catalog.cattle.io/release-name: rancher-monitoring-crd
