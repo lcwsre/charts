@@ -6,7 +6,7 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 1.4.0
-    created: "2026-01-28T15:25:56.2969847+03:00"
+    created: "2026-01-28T16:39:51.6373506+03:00"
     description: A Helm chart to install Kubernetes Gateway API CRDs (CustomResourceDefinitions)
     digest: 5b3b8064b6101fab986a456bd8ffe0720beb8e0f57187025671babede96894bd
     home: https://gateway-api.sigs.k8s.io/
@@ -26,14 +26,14 @@ entries:
     - https://github.com/kubernetes-sigs/gateway-api
     type: application
     urls:
-    - https://lcwsre.github.io/charts/gateway-api-crds-1.4.0.tgz
+    - https://egvimo.github.io/charts/gateway-api-crds-1.4.0.tgz
     version: 1.4.0
   - annotations:
       artifacthub.io/category: networking
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 1.3.0
-    created: "2026-01-28T15:25:56.2911009+03:00"
+    created: "2026-01-28T16:39:51.6010793+03:00"
     description: A Helm chart to install Kubernetes Gateway API CRDs (CustomResourceDefinitions)
     digest: 3b02d28544fa181fac87b74f1f7009e3c4034baf2ca824840e823bff76f412c3
     home: https://gateway-api.sigs.k8s.io/
@@ -53,14 +53,14 @@ entries:
     - https://github.com/kubernetes-sigs/gateway-api
     type: application
     urls:
-    - https://lcwsre.github.io/charts/gateway-api-crds-1.3.0.tgz
+    - https://egvimo.github.io/charts/gateway-api-crds-1.3.0.tgz
     version: 1.3.0
   - annotations:
       artifacthub.io/category: networking
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 1.2.0
-    created: "2026-01-28T15:25:56.2845839+03:00"
+    created: "2026-01-28T16:39:51.5659715+03:00"
     description: A Helm chart to install Kubernetes Gateway API CRDs (CustomResourceDefinitions)
     digest: a01c0bcc90da580052c3543374848acb7a11e8c6b46f47b000b11d2f395f2c36
     home: https://gateway-api.sigs.k8s.io/
@@ -80,7 +80,7 @@ entries:
     - https://github.com/kubernetes-sigs/gateway-api
     type: application
     urls:
-    - https://lcwsre.github.io/charts/gateway-api-crds-1.2.0.tgz
+    - https://egvimo.github.io/charts/gateway-api-crds-1.2.0.tgz
     version: 1.2.0
   rancher-monitoring-crd:
   - annotations:
@@ -88,9 +88,9 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 77.9.1
-    created: "2026-01-28T15:25:56.4144872+03:00"
+    created: "2026-01-28T16:39:51.8462648+03:00"
     description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
-    digest: 405669b48620be616d3fe2cc9466703197f42ca68757d0aa4742fa923f109e97
+    digest: 86676aff5885b7878e9152f7b3939ab8538f3da8b6da64434d9c5c36d00525bc
     home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
     icon: https://ranchermanager.docs.rancher.com/img/rancher-logo-horiz-color.svg
     keywords:
@@ -109,16 +109,16 @@ entries:
     - https://github.com/prometheus-operator/prometheus-operator
     type: application
     urls:
-    - https://lcwsre.github.io/charts/rancher-monitoring-crd-108.0.2+up77.9.1-rancher.11.tgz
+    - https://egvimo.github.io/charts/rancher-monitoring-crd-108.0.2+up77.9.1-rancher.11.tgz
     version: 108.0.2+up77.9.1-rancher.11
   - annotations:
       artifacthub.io/category: monitoring-logging
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 77.9.1
-    created: "2026-01-28T15:25:56.4093636+03:00"
+    created: "2026-01-28T16:39:51.8322316+03:00"
     description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
-    digest: a93eb9414b6004bfcd4e00ef2a49d584bc20fd84d34084c6ebfdefcc933e64e6
+    digest: 77279e6c68402f41cf720dea3bd901152e483e2a49a6be8c8f0625d1b1dab751
     home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
     icon: https://ranchermanager.docs.rancher.com/img/rancher-logo-horiz-color.svg
     keywords:
@@ -137,16 +137,16 @@ entries:
     - https://github.com/prometheus-operator/prometheus-operator
     type: application
     urls:
-    - https://lcwsre.github.io/charts/rancher-monitoring-crd-108.0.1+up77.9.1-rancher.10.tgz
+    - https://egvimo.github.io/charts/rancher-monitoring-crd-108.0.1+up77.9.1-rancher.10.tgz
     version: 108.0.1+up77.9.1-rancher.10
   - annotations:
       artifacthub.io/category: monitoring-logging
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 77.9.1
-    created: "2026-01-28T15:25:56.4043103+03:00"
+    created: "2026-01-28T16:39:51.8131548+03:00"
     description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
-    digest: 36bb20fb65f550a27b78e1a7cb52f9975589d620a9a8efd1d9a2dfe0aec59f6c
+    digest: 974358d1ec414cf12b1e56f96d1284cde25707519a98a50a4785381a601b5b31
     home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
     icon: https://ranchermanager.docs.rancher.com/img/rancher-logo-horiz-color.svg
     keywords:
@@ -165,16 +165,16 @@ entries:
     - https://github.com/prometheus-operator/prometheus-operator
     type: application
     urls:
-    - https://lcwsre.github.io/charts/rancher-monitoring-crd-108.0.0+up77.9.1-rancher.6.tgz
+    - https://egvimo.github.io/charts/rancher-monitoring-crd-108.0.0+up77.9.1-rancher.6.tgz
     version: 108.0.0+up77.9.1-rancher.6
   - annotations:
       artifacthub.io/category: monitoring-logging
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 69.8.2
-    created: "2026-01-28T15:25:56.3997556+03:00"
+    created: "2026-01-28T16:39:51.8014434+03:00"
     description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
-    digest: 79cef42b82cb6273dc6dc870c802dd5f90c33130edf2ce5c01f19643938275d1
+    digest: b7eb9a60abcece49ac420e295f8278ece20edf7cd6cf72a9463f2cbe15c3aee7
     home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
     icon: https://ranchermanager.docs.rancher.com/img/rancher-logo-horiz-color.svg
     keywords:
@@ -193,16 +193,16 @@ entries:
     - https://github.com/prometheus-operator/prometheus-operator
     type: application
     urls:
-    - https://lcwsre.github.io/charts/rancher-monitoring-crd-107.2.2+up69.8.2-rancher.26.tgz
+    - https://egvimo.github.io/charts/rancher-monitoring-crd-107.2.2+up69.8.2-rancher.26.tgz
     version: 107.2.2+up69.8.2-rancher.26
   - annotations:
       artifacthub.io/category: monitoring-logging
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 69.8.2
-    created: "2026-01-28T15:25:56.3922662+03:00"
+    created: "2026-01-28T16:39:51.7856387+03:00"
     description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
-    digest: 67a6b8549d8aac1e46821330854cfca78750a0cf54a4fb222e30808a68531a99
+    digest: 7026e07e342547fcba46ed5ce3146062180893cdb84bdb6528f30bd706b8bca5
     home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
     icon: https://ranchermanager.docs.rancher.com/img/rancher-logo-horiz-color.svg
     keywords:
@@ -221,16 +221,16 @@ entries:
     - https://github.com/prometheus-operator/prometheus-operator
     type: application
     urls:
-    - https://lcwsre.github.io/charts/rancher-monitoring-crd-107.2.1+up69.8.2-rancher.23.tgz
+    - https://egvimo.github.io/charts/rancher-monitoring-crd-107.2.1+up69.8.2-rancher.23.tgz
     version: 107.2.1+up69.8.2-rancher.23
   - annotations:
       artifacthub.io/category: monitoring-logging
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 69.8.2
-    created: "2026-01-28T15:25:56.3836816+03:00"
+    created: "2026-01-28T16:39:51.7665439+03:00"
     description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
-    digest: c6054d2bff199c3cad2e696701197c60b38e3311bf0eb14f475be9b5b5f78fb2
+    digest: ab82412cf96ef89a8c891ed826b054b496a4ed1993c2e300ea4941f0e0cf23f2
     home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
     icon: https://ranchermanager.docs.rancher.com/img/rancher-logo-horiz-color.svg
     keywords:
@@ -249,16 +249,16 @@ entries:
     - https://github.com/prometheus-operator/prometheus-operator
     type: application
     urls:
-    - https://lcwsre.github.io/charts/rancher-monitoring-crd-107.2.0+up69.8.2-rancher.20.tgz
+    - https://egvimo.github.io/charts/rancher-monitoring-crd-107.2.0+up69.8.2-rancher.20.tgz
     version: 107.2.0+up69.8.2-rancher.20
   - annotations:
       artifacthub.io/category: monitoring-logging
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 69.8.2
-    created: "2026-01-28T15:25:56.3756208+03:00"
+    created: "2026-01-28T16:39:51.7463889+03:00"
     description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
-    digest: f6258a050cccef933224709b261984dd91912e4e7b31c74a332402900e81810d
+    digest: 864a641ace315c256dbdae4b007b72a0c3a2ba89d272324afbbcaa9f0c86b3fa
     home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
     icon: https://ranchermanager.docs.rancher.com/img/rancher-logo-horiz-color.svg
     keywords:
@@ -277,16 +277,16 @@ entries:
     - https://github.com/prometheus-operator/prometheus-operator
     type: application
     urls:
-    - https://lcwsre.github.io/charts/rancher-monitoring-crd-107.1.0+up69.8.2-rancher.15.tgz
+    - https://egvimo.github.io/charts/rancher-monitoring-crd-107.1.0+up69.8.2-rancher.15.tgz
     version: 107.1.0+up69.8.2-rancher.15
   - annotations:
       artifacthub.io/category: monitoring-logging
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 69.8.2
-    created: "2026-01-28T15:25:56.3670589+03:00"
+    created: "2026-01-28T16:39:51.7268269+03:00"
     description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
-    digest: f165626fc9fb3e16a5ec7e7b40b2cd454d870842d6c2fee1420366c0d38254bb
+    digest: c482f7e89e89839fc3c832d3eeebc3ace69af3e9f33ad9502250305574f38e45
     home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
     icon: https://ranchermanager.docs.rancher.com/img/rancher-logo-horiz-color.svg
     keywords:
@@ -305,6 +305,6 @@ entries:
     - https://github.com/prometheus-operator/prometheus-operator
     type: application
     urls:
-    - https://lcwsre.github.io/charts/rancher-monitoring-crd-107.0.0+up69.8.2-rancher.8.tgz
+    - https://egvimo.github.io/charts/rancher-monitoring-crd-107.0.0+up69.8.2-rancher.8.tgz
     version: 107.0.0+up69.8.2-rancher.8
-generated: "2026-01-28T15:25:56.232574+03:00"
+generated: "2026-01-28T16:39:51.4758025+03:00"
