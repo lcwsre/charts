@@ -6,7 +6,7 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 1.4.0
-    created: "2026-01-28T13:09:21.0591155+03:00"
+    created: "2026-01-28T13:11:45.6848804+03:00"
     description: A Helm chart to install Kubernetes Gateway API CRDs (CustomResourceDefinitions)
     digest: 5b3b8064b6101fab986a456bd8ffe0720beb8e0f57187025671babede96894bd
     home: https://gateway-api.sigs.k8s.io/
@@ -33,7 +33,7 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 1.3.0
-    created: "2026-01-28T13:09:21.0277204+03:00"
+    created: "2026-01-28T13:11:45.6817837+03:00"
     description: A Helm chart to install Kubernetes Gateway API CRDs (CustomResourceDefinitions)
     digest: 3b02d28544fa181fac87b74f1f7009e3c4034baf2ca824840e823bff76f412c3
     home: https://gateway-api.sigs.k8s.io/
@@ -60,7 +60,7 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 1.2.0
-    created: "2026-01-28T13:09:21.0025222+03:00"
+    created: "2026-01-28T13:11:45.6780773+03:00"
     description: A Helm chart to install Kubernetes Gateway API CRDs (CustomResourceDefinitions)
     digest: a01c0bcc90da580052c3543374848acb7a11e8c6b46f47b000b11d2f395f2c36
     home: https://gateway-api.sigs.k8s.io/
@@ -89,7 +89,7 @@ entries:
       catalog.cattle.io/namespace: cattle-monitoring-system
       catalog.cattle.io/release-name: rancher-monitoring-crd
     apiVersion: v2
-    created: "2026-01-28T13:09:21.1088403+03:00"
+    created: "2026-01-28T13:11:45.9369174+03:00"
     description: Installs the CRDs for rancher-monitoring.
     digest: 96a59e18c2c46de9a02fe8992c4c4741892a12f0413cb75d9f310dcc98a624ee
     name: rancher-monitoring-crd
@@ -103,7 +103,7 @@ entries:
       catalog.cattle.io/namespace: cattle-monitoring-system
       catalog.cattle.io/release-name: rancher-monitoring-crd
     apiVersion: v2
-    created: "2026-01-28T13:09:21.1088403+03:00"
+    created: "2026-01-28T13:11:45.8870094+03:00"
     description: Installs the CRDs for rancher-monitoring.
     digest: 2ac5bae1ace5dc601b719ba516f5f31784118fc8ba4844078da8814b890c11be
     name: rancher-monitoring-crd
@@ -117,7 +117,7 @@ entries:
       catalog.cattle.io/namespace: cattle-monitoring-system
       catalog.cattle.io/release-name: rancher-monitoring-crd
     apiVersion: v2
-    created: "2026-01-28T13:09:21.1054627+03:00"
+    created: "2026-01-28T13:11:45.8526338+03:00"
     description: Installs the CRDs for rancher-monitoring.
     digest: 391d03813a7ea68402c2b6cb9b1bee19d7d0c1842bf91d42a72c3f67af728da4
     name: rancher-monitoring-crd
@@ -131,7 +131,7 @@ entries:
       catalog.cattle.io/namespace: cattle-monitoring-system
       catalog.cattle.io/release-name: rancher-monitoring-crd
     apiVersion: v2
-    created: "2026-01-28T13:09:21.1000583+03:00"
+    created: "2026-01-28T13:11:45.827458+03:00"
     description: Installs the CRDs for rancher-monitoring.
     digest: a5fc79ecc86b9ee360c2b74544989777be633fc4e84fb9cb2ab5056e2c315581
     name: rancher-monitoring-crd
@@ -145,7 +145,7 @@ entries:
       catalog.cattle.io/namespace: cattle-monitoring-system
       catalog.cattle.io/release-name: rancher-monitoring-crd
     apiVersion: v2
-    created: "2026-01-28T13:09:21.09468+03:00"
+    created: "2026-01-28T13:11:45.7996322+03:00"
     description: Installs the CRDs for rancher-monitoring.
     digest: 1d7022b6018b2e7f6fe536392be9201f76390cea2fb9d11314c411f696a53a61
     name: rancher-monitoring-crd
@@ -159,7 +159,7 @@ entries:
       catalog.cattle.io/namespace: cattle-monitoring-system
       catalog.cattle.io/release-name: rancher-monitoring-crd
     apiVersion: v2
-    created: "2026-01-28T13:09:21.0867046+03:00"
+    created: "2026-01-28T13:11:45.7733987+03:00"
     description: Installs the CRDs for rancher-monitoring.
     digest: 7b0ce4f460b8b3878af51666ae08be564eb47bebc88ca5b932feca0ee4643dda
     name: rancher-monitoring-crd
@@ -173,7 +173,7 @@ entries:
       catalog.cattle.io/namespace: cattle-monitoring-system
       catalog.cattle.io/release-name: rancher-monitoring-crd
     apiVersion: v2
-    created: "2026-01-28T13:09:21.0784109+03:00"
+    created: "2026-01-28T13:11:45.7419689+03:00"
     description: Installs the CRDs for rancher-monitoring.
     digest: f3cd56de0bcb7c2420bda2472f977c1dec6d503c1970d5ac1c8ae29f482823db
     name: rancher-monitoring-crd
@@ -187,7 +187,7 @@ entries:
       catalog.cattle.io/namespace: cattle-monitoring-system
       catalog.cattle.io/release-name: rancher-monitoring-crd
     apiVersion: v2
-    created: "2026-01-28T13:09:21.0703537+03:00"
+    created: "2026-01-28T13:11:45.7134632+03:00"
     description: Installs the CRDs for rancher-monitoring.
     digest: 72b848b4496e7f6426f003d7542131b7aedb829be84d0ef144b00f2cce5b67d0
     name: rancher-monitoring-crd
@@ -195,4 +195,4 @@ entries:
     urls:
     - https://lcwsre.github.io/charts/rancher-monitoring-crd-107.0.0+up69.8.2-rancher.8.tgz
     version: 107.0.0+up69.8.2-rancher.8
-generated: "2026-01-28T13:09:20.9729651+03:00"
+generated: "2026-01-28T13:11:45.6413804+03:00"
