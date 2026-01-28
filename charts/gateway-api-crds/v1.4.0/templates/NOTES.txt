@@ -1,0 +1,32 @@
+Gateway API CRDs have been installed successfully!
+
+Gateway API Version: {{ .Values.gatewayAPIVersion }}
+
+The following CRDs have been installed:
+{{- if .Values.crds.gatewayClass.enabled }}
+  ✓ gatewayclasses.gateway.networking.k8s.io
+{{- end }}
+{{- if .Values.crds.gateway.enabled }}
+  ✓ gateways.gateway.networking.k8s.io
+{{- end }}
+{{- if .Values.crds.httpRoute.enabled }}
+  ✓ httproutes.gateway.networking.k8s.io
+{{- end }}
+{{- if .Values.crds.grpcRoute.enabled }}
+  ✓ grpcroutes.gateway.networking.k8s.io
+{{- end }}
+{{- if .Values.crds.referenceGrant.enabled }}
+  ✓ referencegrants.gateway.networking.k8s.io
+{{- end }}
+
+To verify the installation, run:
+  kubectl get crds | grep gateway.networking.k8s.io
+
+To get started with Gateway API:
+  1. Deploy a Gateway controller (e.g., Cilium, Istio, Envoy Gateway, etc.)
+  2. Create a GatewayClass resource
+  3. Create a Gateway resource
+  4. Create HTTPRoute/GRPCRoute resources to route traffic
+
+For more information, visit:
+  https://gateway-api.sigs.k8s.io/

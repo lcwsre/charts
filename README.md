@@ -21,11 +21,15 @@ Kubernetes Gateway API Custom Resource Definitions (CRDs) installer.
 
 **Install:**
 ```bash
+# Install latest version (1.4.0)
 helm install gateway-api-crds lcwsre/gateway-api-crds
+
+# Install specific version
+helm install gateway-api-crds lcwsre/gateway-api-crds --version 1.4.0
 ```
 
 **Features:**
-- Gateway API v1.2.0
+- Gateway API v1.4.0 (latest), v1.3.0, v1.2.0
 - Standard CRDs: GatewayClass, Gateway, HTTPRoute, GRPCRoute, ReferenceGrant
 - Configurable CRD installation (enable/disable individual CRDs)
 - Compatible with Cilium, Istio, Envoy Gateway, and other Gateway API implementations
