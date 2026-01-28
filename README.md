@@ -36,6 +36,27 @@ helm install gateway-api-crds lcwsre/gateway-api-crds --version 1.4.0
 
 **Documentation:** [charts/gateway-api-crds/README.md](charts/gateway-api-crds/README.md)
 
+### rancher-monitoring-crd
+
+Rancher Monitoring Custom Resource Definitions (CRDs) installer for Prometheus Operator.
+
+**Install:**
+```bash
+# Install latest version (108.0.2)
+helm install rancher-monitoring-crd lcwsre/rancher-monitoring-crd
+
+# Install specific version
+helm install rancher-monitoring-crd lcwsre/rancher-monitoring-crd --version 108.0.2+up77.9.1-rancher.11
+```
+
+**Features:**
+- Multiple versions: 108.x series (Prometheus Operator 77.9.1) and 107.x series (69.8.2)
+- Prometheus Operator CRDs: ServiceMonitor, PodMonitor, PrometheusRule, Alertmanager, etc.
+- Automated CRD installation via Helm hooks (post-install, post-upgrade)
+- Compatible with Rancher Monitoring stack
+
+**Documentation:** [charts/rancher-monitoring-crd/README.md](charts/rancher-monitoring-crd/README.md)
+
 ## 🔍 Search Charts
 
 ```bash
@@ -47,6 +68,11 @@ helm search repo lcwsre
 ### Install Gateway API CRDs
 ```bash
 helm install gateway-api-crds lcwsre/gateway-api-crds
+```
+
+### Install Rancher Monitoring CRDs
+```bash
+helm install rancher-monitoring-crd lcwsre/rancher-monitoring-crd
 ```
 
 ### Install with custom configuration
@@ -66,7 +92,8 @@ helm upgrade gateway-api-crds lcwsre/gateway-api-crds
 ```
 .
 ├── charts/
-│   └── gateway-api-crds/      # Gateway API CRDs Helm Chart
+│   ├── gateway-api-crds/      # Gateway API CRDs Helm Chart
+│   └── rancher-monitoring-crd/ # Rancher Monitoring CRDs Helm Chart
 ├── docs/                       # GitHub Pages (Helm repo index)
 │   ├── index.html             # Repository landing page
 │   ├── index.yaml             # Helm repository index
@@ -115,6 +142,8 @@ helm template test-release charts/gateway-api-crds
 ## 🔗 Links
 
 - [Kubernetes Gateway API](https://gateway-api.sigs.k8s.io/)
+- [Rancher Monitoring](https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting)
+- [Prometheus Operator](https://prometheus-operator.dev/)
 - [Helm Documentation](https://helm.sh/docs/)
 - [LC Waikiki](https://www.lcwaikiki.com/)
 
