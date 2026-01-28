@@ -67,6 +67,8 @@ spec:
       labels:
         app: {{ .Chart.Name }}
     spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
       serviceAccountName: {{ .Chart.Name }}-manager
       securityContext:
         runAsNonRoot: false
