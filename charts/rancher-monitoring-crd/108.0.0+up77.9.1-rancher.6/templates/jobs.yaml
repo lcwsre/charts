@@ -17,6 +17,12 @@ spec:
     spec:
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
+      hostAliases:
+        - ip: "127.0.0.1"
+          hostnames:
+            - "kubernetes"
+            - "kubernetes.default"
+            - "kubernetes.default.svc"
       serviceAccountName: {{ .Chart.Name }}-manager
       securityContext:
         runAsNonRoot: false
@@ -71,6 +77,12 @@ spec:
     spec:
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
+      hostAliases:
+        - ip: "127.0.0.1"
+          hostnames:
+            - "kubernetes"
+            - "kubernetes.default"
+            - "kubernetes.default.svc"
       serviceAccountName: {{ .Chart.Name }}-manager
       securityContext:
         runAsNonRoot: false
