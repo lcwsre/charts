@@ -1,47 +1,76 @@
-{{- if .Values.rbac.create -}}
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: {{ include "rancher-monitoring-crd.serviceAccountName" . }}
-  namespace: {{ .Release.Namespace }}
-  labels:
-    {{- include "rancher-monitoring-crd.labels" . | nindent 4 }}
-  annotations:
-    "helm.sh/hook": pre-install,pre-upgrade,post-delete
-    "helm.sh/hook-weight": "-10"
-    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
----
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ include "rancher-monitoring-crd.fullname" . }}
+  name: {{ .Chart.Name }}-manager
   labels:
-    {{- include "rancher-monitoring-crd.labels" . | nindent 4 }}
-  annotations:
-    "helm.sh/hook": pre-install,pre-upgrade,post-delete
-    "helm.sh/hook-weight": "-10"
-    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+    app: {{ .Chart.Name }}-manager
 rules:
-- apiGroups: ["apiextensions.k8s.io"]
-  resources: ["customresourcedefinitions"]
-  verbs: ["get", "list", "create", "update", "patch", "delete"]
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs: ['create', 'get', 'patch', 'delete', 'update', 'list']
+{{- if .Values.global.cattle.psp.enabled }}
+- apiGroups: ['policy']
+  resources: ['podsecuritypolicies']
+  verbs:     ['use']
+  resourceNames:
+  - {{ .Chart.Name }}-manager
+{{- end }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ include "rancher-monitoring-crd.fullname" . }}
+  name: {{ .Chart.Name }}-manager
   labels:
-    {{- include "rancher-monitoring-crd.labels" . | nindent 4 }}
-  annotations:
-    "helm.sh/hook": pre-install,pre-upgrade,post-delete
-    "helm.sh/hook-weight": "-10"
-    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+    app: {{ .Chart.Name }}-manager
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ include "rancher-monitoring-crd.fullname" . }}
+  name: {{ .Chart.Name }}-manager
 subjects:
 - kind: ServiceAccount
-  name: {{ include "rancher-monitoring-crd.serviceAccountName" . }}
+  name: {{ .Chart.Name }}-manager
   namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Chart.Name }}-manager
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Chart.Name }}-manager
+---
+{{- if .Values.global.cattle.psp.enabled }}
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: {{ .Chart.Name }}-manager
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Chart.Name }}-manager
+spec:
+  privileged: false
+  allowPrivilegeEscalation: false
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  runAsUser:
+    rule: 'RunAsAny'
+  seLinux:
+    rule: 'RunAsAny'
+  supplementalGroups:
+    rule: 'MustRunAs'
+    ranges:
+      - min: 1
+        max: 65535
+  fsGroup:
+    rule: 'MustRunAs'
+    ranges:
+      - min: 1
+        max: 65535
+  readOnlyRootFilesystem: false
+  volumes:
+    - 'configMap'
+    - 'secret'
 {{- end }}

@@ -6,7 +6,7 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 1.4.0
-    created: "2026-01-29T09:14:46.235850771Z"
+    created: "2026-01-29T12:38:29.7102766+03:00"
     description: A Helm chart to install Kubernetes Gateway API CRDs (CustomResourceDefinitions)
     digest: 5b3b8064b6101fab986a456bd8ffe0720beb8e0f57187025671babede96894bd
     home: https://gateway-api.sigs.k8s.io/
@@ -26,14 +26,14 @@ entries:
     - https://github.com/kubernetes-sigs/gateway-api
     type: application
     urls:
-    - https://lcwsre.github.io/charts/gateway-api-crds-1.4.0.tgz
+    - https://eyupguner.github.io/charts/gateway-api-crds-1.4.0.tgz
     version: 1.4.0
   - annotations:
       artifacthub.io/category: networking
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 1.3.0
-    created: "2026-01-29T09:14:46.233555867Z"
+    created: "2026-01-29T12:38:29.7065023+03:00"
     description: A Helm chart to install Kubernetes Gateway API CRDs (CustomResourceDefinitions)
     digest: 3b02d28544fa181fac87b74f1f7009e3c4034baf2ca824840e823bff76f412c3
     home: https://gateway-api.sigs.k8s.io/
@@ -53,14 +53,14 @@ entries:
     - https://github.com/kubernetes-sigs/gateway-api
     type: application
     urls:
-    - https://lcwsre.github.io/charts/gateway-api-crds-1.3.0.tgz
+    - https://eyupguner.github.io/charts/gateway-api-crds-1.3.0.tgz
     version: 1.3.0
   - annotations:
       artifacthub.io/category: networking
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 1.2.0
-    created: "2026-01-29T09:14:46.231857139Z"
+    created: "2026-01-29T12:38:29.7031937+03:00"
     description: A Helm chart to install Kubernetes Gateway API CRDs (CustomResourceDefinitions)
     digest: a01c0bcc90da580052c3543374848acb7a11e8c6b46f47b000b11d2f395f2c36
     home: https://gateway-api.sigs.k8s.io/
@@ -80,231 +80,20 @@ entries:
     - https://github.com/kubernetes-sigs/gateway-api
     type: application
     urls:
-    - https://lcwsre.github.io/charts/gateway-api-crds-1.2.0.tgz
+    - https://eyupguner.github.io/charts/gateway-api-crds-1.2.0.tgz
     version: 1.2.0
   rancher-monitoring-crd:
   - annotations:
-      artifacthub.io/category: monitoring-logging
-      artifacthub.io/license: Apache-2.0
+      catalog.cattle.io/certified: rancher
+      catalog.cattle.io/namespace: cattle-monitoring-system
+      catalog.cattle.io/release-name: rancher-monitoring-crd
     apiVersion: v2
-    appVersion: 77.9.1
-    created: "2026-01-29T09:14:46.391581973Z"
-    description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
-    digest: 690a320b6ed2dee0ec84b30aa3f282f6e125ede37bf7fbf3229e529317136211
-    home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
-    icon: https://ranchermanager.docs.rancher.com/img/rancher-logo-horiz-color.svg
-    keywords:
-    - rancher
-    - monitoring
-    - prometheus
-    - crd
-    - operator
-    - observability
-    maintainers:
-    - email: lcwsre@lcwaikiki.com
-      name: LCW SRE Team
+    created: "2026-01-29T12:38:29.9466512+03:00"
+    description: Installs the CRDs for rancher-monitoring.
+    digest: 194c74afc45553b4c145c423ae4f1dc3e07450109f505537f576d2806dd00b7e
     name: rancher-monitoring-crd
-    sources:
-    - https://github.com/rancher/charts
-    - https://github.com/prometheus-operator/prometheus-operator
     type: application
     urls:
-    - https://lcwsre.github.io/charts/rancher-monitoring-crd-108.0.2+up77.9.1-rancher.11.tgz
-    version: 108.0.2+up77.9.1-rancher.11
-  - annotations:
-      artifacthub.io/category: monitoring-logging
-      artifacthub.io/license: Apache-2.0
-    apiVersion: v2
-    appVersion: 77.9.1
-    created: "2026-01-29T09:14:46.391161669Z"
-    description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
-    digest: 76f613d698107a20d965d8cd8415639f10faf3f88dabfc37b82065fdcd49c56d
-    home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
-    icon: https://ranchermanager.docs.rancher.com/img/rancher-logo-horiz-color.svg
-    keywords:
-    - rancher
-    - monitoring
-    - prometheus
-    - crd
-    - operator
-    - observability
-    maintainers:
-    - email: lcwsre@lcwaikiki.com
-      name: LCW SRE Team
-    name: rancher-monitoring-crd
-    sources:
-    - https://github.com/rancher/charts
-    - https://github.com/prometheus-operator/prometheus-operator
-    type: application
-    urls:
-    - https://lcwsre.github.io/charts/rancher-monitoring-crd-108.0.1+up77.9.1-rancher.10.tgz
-    version: 108.0.1+up77.9.1-rancher.10
-  - annotations:
-      artifacthub.io/category: monitoring-logging
-      artifacthub.io/license: Apache-2.0
-    apiVersion: v2
-    appVersion: 77.9.1
-    created: "2026-01-29T09:14:46.390727628Z"
-    description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
-    digest: 9e58b947c2c227274c8de2fe4dcbedabe974b9aa068feb59f30292195c3fffe3
-    home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
-    icon: https://ranchermanager.docs.rancher.com/img/rancher-logo-horiz-color.svg
-    keywords:
-    - rancher
-    - monitoring
-    - prometheus
-    - crd
-    - operator
-    - observability
-    maintainers:
-    - email: lcwsre@lcwaikiki.com
-      name: LCW SRE Team
-    name: rancher-monitoring-crd
-    sources:
-    - https://github.com/rancher/charts
-    - https://github.com/prometheus-operator/prometheus-operator
-    type: application
-    urls:
-    - https://lcwsre.github.io/charts/rancher-monitoring-crd-108.0.0+up77.9.1-rancher.6.tgz
+    - https://eyupguner.github.io/charts/rancher-monitoring-crd-108.0.0+up77.9.1-rancher.6.tgz
     version: 108.0.0+up77.9.1-rancher.6
-  - annotations:
-      artifacthub.io/category: monitoring-logging
-      artifacthub.io/license: Apache-2.0
-    apiVersion: v2
-    appVersion: 69.8.2
-    created: "2026-01-29T09:14:46.390314768Z"
-    description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
-    digest: 3a2726345da70a849ddf08e82b91aaf1ea29478da0bc708625bd61c66e6650ab
-    home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
-    icon: https://ranchermanager.docs.rancher.com/img/rancher-logo-horiz-color.svg
-    keywords:
-    - rancher
-    - monitoring
-    - prometheus
-    - crd
-    - operator
-    - observability
-    maintainers:
-    - email: lcwsre@lcwaikiki.com
-      name: LCW SRE Team
-    name: rancher-monitoring-crd
-    sources:
-    - https://github.com/rancher/charts
-    - https://github.com/prometheus-operator/prometheus-operator
-    type: application
-    urls:
-    - https://lcwsre.github.io/charts/rancher-monitoring-crd-107.2.2+up69.8.2-rancher.26.tgz
-    version: 107.2.2+up69.8.2-rancher.26
-  - annotations:
-      artifacthub.io/category: monitoring-logging
-      artifacthub.io/license: Apache-2.0
-    apiVersion: v2
-    appVersion: 69.8.2
-    created: "2026-01-29T09:14:46.389883833Z"
-    description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
-    digest: f277853c244be41073b5da4a89a279a74722c356c1c9132f2ff798a3d4529721
-    home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
-    icon: https://ranchermanager.docs.rancher.com/img/rancher-logo-horiz-color.svg
-    keywords:
-    - rancher
-    - monitoring
-    - prometheus
-    - crd
-    - operator
-    - observability
-    maintainers:
-    - email: lcwsre@lcwaikiki.com
-      name: LCW SRE Team
-    name: rancher-monitoring-crd
-    sources:
-    - https://github.com/rancher/charts
-    - https://github.com/prometheus-operator/prometheus-operator
-    type: application
-    urls:
-    - https://lcwsre.github.io/charts/rancher-monitoring-crd-107.2.1+up69.8.2-rancher.23.tgz
-    version: 107.2.1+up69.8.2-rancher.23
-  - annotations:
-      artifacthub.io/category: monitoring-logging
-      artifacthub.io/license: Apache-2.0
-    apiVersion: v2
-    appVersion: 69.8.2
-    created: "2026-01-29T09:14:46.389473698Z"
-    description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
-    digest: 4c194e411bea2d80fd9d6b8455287df07f40277615d618d1fd418e8d75d821a6
-    home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
-    icon: https://ranchermanager.docs.rancher.com/img/rancher-logo-horiz-color.svg
-    keywords:
-    - rancher
-    - monitoring
-    - prometheus
-    - crd
-    - operator
-    - observability
-    maintainers:
-    - email: lcwsre@lcwaikiki.com
-      name: LCW SRE Team
-    name: rancher-monitoring-crd
-    sources:
-    - https://github.com/rancher/charts
-    - https://github.com/prometheus-operator/prometheus-operator
-    type: application
-    urls:
-    - https://lcwsre.github.io/charts/rancher-monitoring-crd-107.2.0+up69.8.2-rancher.20.tgz
-    version: 107.2.0+up69.8.2-rancher.20
-  - annotations:
-      artifacthub.io/category: monitoring-logging
-      artifacthub.io/license: Apache-2.0
-    apiVersion: v2
-    appVersion: 69.8.2
-    created: "2026-01-29T09:14:46.389014981Z"
-    description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
-    digest: 05514c1b1cd0e412a82074f90a204b44cf7031efc0560d3c75d203943ba5dfaf
-    home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
-    icon: https://ranchermanager.docs.rancher.com/img/rancher-logo-horiz-color.svg
-    keywords:
-    - rancher
-    - monitoring
-    - prometheus
-    - crd
-    - operator
-    - observability
-    maintainers:
-    - email: lcwsre@lcwaikiki.com
-      name: LCW SRE Team
-    name: rancher-monitoring-crd
-    sources:
-    - https://github.com/rancher/charts
-    - https://github.com/prometheus-operator/prometheus-operator
-    type: application
-    urls:
-    - https://lcwsre.github.io/charts/rancher-monitoring-crd-107.1.0+up69.8.2-rancher.15.tgz
-    version: 107.1.0+up69.8.2-rancher.15
-  - annotations:
-      artifacthub.io/category: monitoring-logging
-      artifacthub.io/license: Apache-2.0
-    apiVersion: v2
-    appVersion: 69.8.2
-    created: "2026-01-29T09:14:46.388587924Z"
-    description: Installs the CRDs for Rancher Monitoring (Prometheus Operator)
-    digest: 01f7bf971116457f5d548679783bf8b4da5d741a9613e3d2f653d24ec7d010a6
-    home: https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting
-    icon: https://ranchermanager.docs.rancher.com/img/rancher-logo-horiz-color.svg
-    keywords:
-    - rancher
-    - monitoring
-    - prometheus
-    - crd
-    - operator
-    - observability
-    maintainers:
-    - email: lcwsre@lcwaikiki.com
-      name: LCW SRE Team
-    name: rancher-monitoring-crd
-    sources:
-    - https://github.com/rancher/charts
-    - https://github.com/prometheus-operator/prometheus-operator
-    type: application
-    urls:
-    - https://lcwsre.github.io/charts/rancher-monitoring-crd-107.0.0+up69.8.2-rancher.8.tgz
-    version: 107.0.0+up69.8.2-rancher.8
-generated: "2026-01-29T09:14:46.226151505Z"
+generated: "2026-01-29T12:38:29.6735506+03:00"
