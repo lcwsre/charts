@@ -6,7 +6,7 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 1.4.0
-    created: "2026-01-29T11:21:31.86490119Z"
+    created: "2026-01-29T14:34:28.6642661+03:00"
     description: A Helm chart to install Kubernetes Gateway API CRDs (CustomResourceDefinitions)
     digest: 5b3b8064b6101fab986a456bd8ffe0720beb8e0f57187025671babede96894bd
     home: https://gateway-api.sigs.k8s.io/
@@ -26,14 +26,14 @@ entries:
     - https://github.com/kubernetes-sigs/gateway-api
     type: application
     urls:
-    - https://lcwsre.github.io/charts/gateway-api-crds-1.4.0.tgz
+    - https://eyupguner.github.io/charts/gateway-api-crds-1.4.0.tgz
     version: 1.4.0
   - annotations:
       artifacthub.io/category: networking
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 1.3.0
-    created: "2026-01-29T11:21:31.862277874Z"
+    created: "2026-01-29T14:34:28.6594306+03:00"
     description: A Helm chart to install Kubernetes Gateway API CRDs (CustomResourceDefinitions)
     digest: 3b02d28544fa181fac87b74f1f7009e3c4034baf2ca824840e823bff76f412c3
     home: https://gateway-api.sigs.k8s.io/
@@ -53,14 +53,14 @@ entries:
     - https://github.com/kubernetes-sigs/gateway-api
     type: application
     urls:
-    - https://lcwsre.github.io/charts/gateway-api-crds-1.3.0.tgz
+    - https://eyupguner.github.io/charts/gateway-api-crds-1.3.0.tgz
     version: 1.3.0
   - annotations:
       artifacthub.io/category: networking
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 1.2.0
-    created: "2026-01-29T11:21:31.86110186Z"
+    created: "2026-01-29T14:34:28.6548524+03:00"
     description: A Helm chart to install Kubernetes Gateway API CRDs (CustomResourceDefinitions)
     digest: a01c0bcc90da580052c3543374848acb7a11e8c6b46f47b000b11d2f395f2c36
     home: https://gateway-api.sigs.k8s.io/
@@ -80,7 +80,7 @@ entries:
     - https://github.com/kubernetes-sigs/gateway-api
     type: application
     urls:
-    - https://lcwsre.github.io/charts/gateway-api-crds-1.2.0.tgz
+    - https://eyupguner.github.io/charts/gateway-api-crds-1.2.0.tgz
     version: 1.2.0
   rancher-monitoring-crd:
   - annotations:
@@ -88,12 +88,12 @@ entries:
       catalog.cattle.io/namespace: cattle-monitoring-system
       catalog.cattle.io/release-name: rancher-monitoring-crd
     apiVersion: v2
-    created: "2026-01-29T11:21:31.866989254Z"
+    created: "2026-01-29T14:34:28.6670249+03:00"
     description: Installs the CRDs for rancher-monitoring.
-    digest: 19a41760ea374dc3e83850959bcd8c95211a8b4cf819f0cdea6ef329d75443c0
+    digest: d3d6db7a262c8ca8adeb031e0ae180a2535f59581fc46d0ee721e8ceedc9195b
     name: rancher-monitoring-crd
     type: application
     urls:
-    - https://lcwsre.github.io/charts/rancher-monitoring-crd-108.0.0+up77.9.1-rancher.6.tgz
+    - https://eyupguner.github.io/charts/rancher-monitoring-crd-108.0.0+up77.9.1-rancher.6.tgz
     version: 108.0.0+up77.9.1-rancher.6
-generated: "2026-01-29T11:21:31.855895886Z"
+generated: "2026-01-29T14:34:28.6456542+03:00"
