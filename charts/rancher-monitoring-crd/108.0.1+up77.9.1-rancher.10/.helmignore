@@ -1,0 +1,10 @@
+﻿# Exclude source CRD files
+crd-source/
+
+# Exclude pre-install ConfigMap (too large for embedded use)
+# Users should apply this separately before chart installation
+pre-install-configmap.yaml
+
+# Only include crds.gz.b64 when embeddedCRDs=true (not recommended)
+# By default (embeddedCRDs=false), this file should not be in the package
+crds.gz.b64

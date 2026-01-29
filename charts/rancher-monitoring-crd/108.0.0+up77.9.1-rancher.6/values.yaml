@@ -4,6 +4,15 @@
 # Prometheus Operator version
 prometheusOperatorVersion: "v0.85.0"
 
+# Embed CRDs in chart (WARNING: May hit Helm 1MB Secret limit)
+# If false, you must create ConfigMap manually before installing
+# See INSTALL.md for instructions
+embeddedCRDs: false
+
+# ConfigMap name for pre-created CRDs (when embeddedCRDs=false)
+# Default: rancher-monitoring-crd-crds
+configMapName: "rancher-monitoring-crd-crds"
+
 # Container image for CRD installation (kubectl)
 image:
   repository: rancher/kuberlr-kubectl

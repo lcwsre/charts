@@ -72,7 +72,7 @@ spec:
       volumes:
       - name: crd-config
         configMap:
-          name: {{ include "rancher-monitoring-crd.fullname" . }}-crds
+          name: {{ .Values.configMapName | default (printf "%s-crds" (include "rancher-monitoring-crd.fullname" .)) }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

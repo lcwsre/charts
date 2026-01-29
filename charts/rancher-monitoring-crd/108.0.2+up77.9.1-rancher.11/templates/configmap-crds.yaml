@@ -1,3 +1,4 @@
+{{- if .Values.embeddedCRDs }}
 {{- if .Values.rbac.create -}}
 apiVersion: v1
 kind: ConfigMap
@@ -12,4 +13,5 @@ metadata:
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
 binaryData:
   crds.gz: {{ .Files.Get "crds.gz.b64" }}
+{{- end }}
 {{- end }}
