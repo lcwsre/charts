@@ -38,7 +38,7 @@ spec:
             echo "Applying CRDs...";
             mkdir -p /etc/crd;
             base64 -d /etc/config/crds.bz2.b64 | bzcat > /etc/crd.yaml;
-            kubectl replace -Rf /etc/crd.yaml || kubectl create -Rf /etc/crd.yaml;
+            kubectl replace --validate=false -Rf /etc/crd.yaml || kubectl create --validate=false -Rf /etc/crd.yaml;
             echo "Done!"
           volumeMounts:
             - name: crd-manifest
@@ -98,7 +98,7 @@ spec:
             echo "Deleting CRDs...";
             mkdir -p /etc/crd;
             base64 -d /etc/config/crds.bz2.b64 | bzcat > /etc/crd.yaml;
-            kubectl delete --ignore-not-found=true -f /etc/crd.yaml;
+            kubectl delete --validate=false --ignore-not-found=true -f /etc/crd.yaml;
           volumeMounts:
             - name: crd-manifest
               readOnly: true
