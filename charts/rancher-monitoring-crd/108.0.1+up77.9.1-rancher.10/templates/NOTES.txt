@@ -1,6 +1,19 @@
-Prometheus Operator CRDs have been installed successfully!
+Thank you for installing {{ .Chart.Name }}!
 
-The following CRDs have been installed:
+Release: {{ .Release.Name }}
+Prometheus Operator Version: {{ .Values.prometheusOperatorVersion }}
+
+🔧 Installation Method: Job-based with server-side apply
+   - Supports bootstrap scenarios (works before CNI)
+   - Uses host network for pre-CNI installation
+   - Handles large CRD payloads efficiently
+
+{{- if .Values.rbac.create }}
+
+✅ RBAC: ServiceAccount {{ include "rancher-monitoring-crd.serviceAccountName" . }} created
+{{- end }}
+
+📋 CRDs installed:
   ✓ alertmanagerconfigs.monitoring.coreos.com
   ✓ alertmanagers.monitoring.coreos.com
   ✓ podmonitors.monitoring.coreos.com
@@ -12,14 +25,20 @@ The following CRDs have been installed:
   ✓ servicemonitors.monitoring.coreos.com
   ✓ thanosrulers.monitoring.coreos.com
 
-To verify the installation, run:
+🔍 Verification:
   kubectl get crds | grep monitoring.coreos.com
+  kubectl get jobs -l app.kubernetes.io/name={{ include "rancher-monitoring-crd.name" . }}
 
-To get started with Prometheus Operator:
-  1. Install the Prometheus Operator (e.g., via rancher-monitoring chart)
-  2. Create Prometheus/Alertmanager instances
-  3. Create ServiceMonitor/PodMonitor resources to scrape metrics
-  4. Create PrometheusRule resources for alerting rules
+{{- if .Values.cleanup.enabled }}
 
-For more information, visit:
-  https://prometheus-operator.dev/
+⚠️  WARNING: CRD cleanup is ENABLED - uninstall will DELETE all CRDs!
+{{- else }}
+
+ℹ️  CRDs will persist after chart uninstall (cleanup.enabled=false)
+{{- end }}
+
+🚀 Next: Install Prometheus Operator
+  helm install rancher-monitoring rancher-monitoring/rancher-monitoring
+
+📖 Documentation: https://prometheus-operator.dev/
+

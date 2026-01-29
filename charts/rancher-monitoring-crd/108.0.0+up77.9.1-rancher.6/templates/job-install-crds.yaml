@@ -1,0 +1,87 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "rancher-monitoring-crd.fullname" . }}-install
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "rancher-monitoring-crd.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  backoffLimit: 3
+  template:
+    metadata:
+      name: {{ include "rancher-monitoring-crd.fullname" . }}-install
+      labels:
+        {{- include "rancher-monitoring-crd.selectorLabels" . | nindent 8 }}
+    spec:
+      restartPolicy: OnFailure
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      serviceAccountName: {{ include "rancher-monitoring-crd.serviceAccountName" . }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: install-crds
+        image: "{{ template "system_default_registry" . }}{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: IfNotPresent
+        command:
+        - /bin/sh
+        - -c
+        - |
+          set -e
+          echo "Installing Prometheus Operator CRDs with server-side apply..."
+          
+          # Decompress and extract CRDs
+          echo "Decompressing CRDs..."
+          base64 -d /etc/config/crds.gz | gunzip > /tmp/all-crds.yaml
+          
+          # Split into individual files
+          mkdir -p /tmp/crds
+          csplit -f /tmp/crds/crd- -b %02d.yaml /tmp/all-crds.yaml '/^---$/' '{*}' 2>/dev/null || true
+          
+          # Apply each CRD with server-side apply
+          for crd in /tmp/crds/*.yaml; do
+            if [ -s "$crd" ]; then
+              echo "Applying $(basename $crd)..."
+              kubectl apply --server-side=true --force-conflicts --field-manager=helm -f "$crd"
+            fi
+          done
+          
+          echo "CRD installation completed successfully!"
+          
+          # List installed CRDs
+          kubectl get crd | grep monitoring.coreos.com
+        volumeMounts:
+        - name: crd-config
+          readOnly: true
+          mountPath: /etc/config
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 65534
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
+          readOnlyRootFilesystem: true
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+      volumes:
+      - name: crd-config
+        configMap:
+          name: {{ include "rancher-monitoring-crd.fullname" . }}-crds
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -50,3 +50,39 @@ app.kubernetes.io/name: {{ include "rancher-monitoring-crd.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "rancher-monitoring-crd.serviceAccountName" -}}
+{{- if .Values.rbac.create }}
+{{- default (include "rancher-monitoring-crd.fullname" .) .Values.rbac.serviceAccountName }}
+{{- else }}
+{{- default "default" .Values.rbac.serviceAccountName }}
+{{- end }}
+{{- end }}
+
+{{/*
+Image pull secrets
+*/}}
+{{- define "rancher-monitoring-crd.imagePullSecrets" -}}
+{{- if .Values.imagePullSecrets }}
+imagePullSecrets:
+{{- range .Values.imagePullSecrets }}
+  - name: {{ . }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{/*
+System default registry prefix
+*/}}
+{{- define "system_default_registry" -}}
+{{- if .Values.global }}
+{{- if .Values.global.cattle }}
+{{- if .Values.global.cattle.systemDefaultRegistry -}}
+{{- printf "%s/" .Values.global.cattle.systemDefaultRegistry -}}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end -}}
+
